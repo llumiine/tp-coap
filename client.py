@@ -32,4 +32,7 @@ if __name__ == "__main__":
     method = args[0] if len(args) > 0 else "get"
     path = args[1] if len(args) > 1 else "time"
     payload = args[2] if len(args) > 2 else None
+    if payload is not None and payload.startswith("@"):
+        with open(payload[1:], "r", encoding="utf-8") as f:
+            payload = f.read()
     asyncio.run(request(method, path, payload))
