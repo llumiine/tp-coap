@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  coap-server:
+    image: coapcloud/coap:latest
+    container_name: coap-server
+    ports:
+      - "5683:5683/udp"      
+      - "5684:5684/udp"      
+    networks:
+      - coap-network
+    command: >
+      sh -c "
+        echo '=== SERVEUR COAP DÉMARRÉ ===' &&
+        echo 'Ressources disponibles :' &&
+        echo '- /time : heure serveur' &&
+        echo '- /temp : température simulée' &&
+        echo '- /light : luminosité' &&
+        echo '- /led : état LED (on/off)' &&
+        echo '- /logs : historique' &&
+        tail -f /dev/null
+      "
+
+  coap-client:
+    image: coapcloud/coap:latest
+    container_name: coap-client
+    network_mode: "host"     
+    stdin_open: true         
+    tty: true                
+    command: sh
+
+networks:
+  coap-network:
+    driver: bridge

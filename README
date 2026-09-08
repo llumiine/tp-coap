@@ -1,0 +1,34 @@
+1. Démarrer l'environnement
+
+Depuis le dossier contenant docker-compose.yml :
+
+
+"docker-compose up -d"
+
+
+2. Vérifier que tout tourne
+
+"docker-compose ps"
+
+Les deux conteneurs (coap-server, coap-client) doivent apparaître avec le statut Up.
+
+3. Se connecter au client CoAP
+"docker attach coap-client"
+Si l'attache ne fonctionne pas (terminal bloqué, pas d'invite), utiliser :
+
+
+"docker exec -it coap-client sh"
+
+
+4. Tester rapidement
+
+Depuis le shell du client :
+
+"coap-client -m get coap://localhost:5683/time"
+
+
+5. Arrêter l'environnement
+
+"docker-compose down"
+
+
