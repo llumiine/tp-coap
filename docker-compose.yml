@@ -19,6 +19,8 @@ services:
     command: sleep infinity
     depends_on:
       - coap-server
+    networks:
+      - coap-network
 
 networks:
   coap-network:
