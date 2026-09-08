@@ -1,34 +1,49 @@
-1. Démarrer l'environnement
+## 1. Démarrer l'environnement
 
-Depuis le dossier contenant docker-compose.yml :
+Depuis PowerShell, dans le dossier du projet :
 
+```powershell
+cd C:\Projet\tp-coap
+docker compose up -d --build
+```
 
-"docker-compose up -d"
+Cette commande construit une image locale avec Python et `aiocoap`.
 
+## 2. Vérifier que tout fonctionne
 
-2. Vérifier que tout tourne
+```powershell
+docker compose ps
+```
 
-"docker-compose ps"
+Les conteneurs `coap-server` et `coap-client` doivent avoir le statut `Up`.
 
-Les deux conteneurs (coap-server, coap-client) doivent apparaître avec le statut Up.
+## 3. Tester rapidement
 
-3. Se connecter au client CoAP
-"docker attach coap-client"
-Si l'attache ne fonctionne pas (terminal bloqué, pas d'invite), utiliser :
+Le client utilise le serveur CoAP sur le réseau Docker :
 
+```powershell
+docker compose exec coap-client python client.py time
+```
 
-"docker exec -it coap-client sh"
+Autres ressources disponibles :
 
+```powershell
+docker compose exec coap-client python client.py temp
+docker compose exec coap-client python client.py light
+docker compose exec coap-client python client.py led
+docker compose exec coap-client python client.py logs
+```
 
-4. Tester rapidement
+## 4. Ouvrir un shell dans le client
 
-Depuis le shell du client :
+```powershell
+docker compose exec coap-client sh
+```
 
-"coap-client -m get coap://localhost:5683/time"
+## 5. Arrêter l'environnement
 
-
-5. Arrêter l'environnement
-
-"docker-compose down"
+```powershell
+docker compose down
+```
 
 
